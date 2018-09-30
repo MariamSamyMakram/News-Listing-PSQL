@@ -1,9 +1,26 @@
-#! /usr/bin/env python3
-
+#!/usr/bin/env python
 import psycopg2
-db = psycopg2.connect("dbname=news")
+
+db = psycopg2.connect(dbname="news")
 c = db.cursor()
 
+
+ERROR_COUNTS_BY_DAY = '''
+    CREATE OR REPLACE VIEW daily_error_view AS
+        SELECT time::date, COUNT(*) AS Error_Count
+        FROM log
+        WHERE status != '200 OK'
+        GROUP BY time::date
+        ORDER BY time::date DESC;
+'''
+
+REQUEST_COUNT_BY_DAY = '''
+    CREATE OR REPLACE VIEW daily_request_view AS
+        SELECT time::date, COUNT(*) AS request_count
+        FROM log
+        GROUP BY time::date
+        ORDER BY time::date DESC;
+'''
 
 PERCENT_ERROR = '''
     CREATE OR REPLACE VIEW percentage_error AS
@@ -20,7 +37,8 @@ PERCENT_ERROR = '''
 '''
 
 
-
+c.execute(ERROR_COUNTS_BY_DAY)
+c.execute(REQUEST_COUNT_BY_DAY)
 c.execute(PERCENT_ERROR)
 db.commit()
 db.close()
