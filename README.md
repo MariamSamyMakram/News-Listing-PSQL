@@ -7,7 +7,7 @@
   3- Install git.
   4- Download FSND-Virtual-Machine.
   5- download database https://d17h27t6h515a5.cloudfront.net/topher/2016/August/57b5f748_newsdata/newsdata.zip
-## commands 
+## Commands 
 - "vagrant up".
 - "vagrant ssh".
 - "psql news".
