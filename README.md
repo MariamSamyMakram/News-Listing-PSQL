@@ -24,5 +24,5 @@
  - then writting this is command "cd Downloads/FSND-Virtual-Machine/Vagrant/"
  - then writting this is command "vagrant up" for install vm .
  - then writting this is command "vagrant ssh"
- - for running queries from database "psql namedatabase"
- - for running file python "python namefile".
+ - for running queries from database "psql -d news -f newsdata.sql"
+ - for running file python "python news.py".
