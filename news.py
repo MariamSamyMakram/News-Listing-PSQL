@@ -22,21 +22,6 @@ class DatabaseConnection:
 
 if __name__ == '__main__':
     database_connection = DatabaseConnection()
-    Result1 = database_connection.select(
-        "select title , count(title)||' '||'views' as views from articles ,log" +
-        " where path='/article/'||slug group by title order by count(title) desc")
-
-    Result2 = database_connection.select(
-        "select authors.name, sum(views_table.views)||' '||'views' as  sum_views " +
-        "from authors , (select title, author, count(path) as views " +
-        "from articles ,log where path='/article/'||slug group by title,author) as views_table" +
-        " where authors.id = author group by authors.name order by sum(views_table.views) desc")
-
-    Result3 = database_connection.select(
-        "select  to_char(Date(time), 'Mon-dd-YYYY') as date, "+
-        "(count(time) * 100 / (select count(*) from log where status != '200 ok'))||'% '||'errors'" +
-        " as percentage from log where status != '200 ok' " +
-        " GROUP BY Date(time) HAVING (count(time) * 100 / (select count(*) from log where status != '200 ok')) > 1")
 
     result1 = database_connection.select("select title , count(path)||' '||'views' as views" +
                                          " from articles ,log where path='/article/'||slug group by title " +
